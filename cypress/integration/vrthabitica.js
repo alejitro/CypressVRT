@@ -6,43 +6,28 @@ describe('Habitica', function() {
   it('Login uno', function() {
 
     cy.visit('https://habitica.com/static/home')
-    cy.screenshot('imagen1')
-    cy.get('#app').contains('Entrar').click()
+    cy.get('#app').contains('Login').click()
     cy.get('#login-form').find('input[id="usernameInput"]').click().type("fakeuser1@fake.com")
     cy.get('#login-form').find('input[id="passwordInput"]').click().type("pruebas201902")
-    cy.get('#login-form').contains('Entrar').click()
-    cy.url().should('contain','https://habitica.com/login')
-    cy.screenshot('imagen2')
-    cy.wait(1000);
-    cy.visit('https://habitica.com/static/home')
-    cy.screenshot('imagen3')
-    cy.get('#intro-signup').find('input[id="usernameInput"]').click().type("alex4543")
-    cy.get('#intro-signup').find('input[placeholder="Correo electrónico"]').click().type("alex4543@hotmail.com")
-    cy.get('#intro-signup').find('input[placeholder="Contraseña"]').click().type("rome9119")
-    cy.get('#intro-signup').find('input[placeholder="Confirma contraseña"]').click().type("rome9119")
-    cy.get('#intro-signup').contains('Regístrate').click()
-    cy.url().should('contain','https://habitica.com/static/home')
-    cy.screenshot('imagen4')
-    cy.wait(1000);
-    cy.visit('https://habitica.com/static/home')
-    cy.screenshot('imagen5')
-    cy.get('#app').contains('Entrar').click()
-    cy.get('#login-form').find('input[id="usernameInput"]').click().type("alex4543")
-    cy.get('#login-form').find('input[id="passwordInput"]').click().type("rome9118")
-    cy.get('#login-form').contains('Entrar').click()
+    cy.get('#login-form').contains('Login').click()
     cy.url().should('contain','https://habitica.com/')
-    cy.screenshot('imagen6')
+    cy.screenshot('1_Login')
     cy.wait(1000);
-    //cy.get('#avatar-modal___BV_modal_outer_').contains('Get Started!').click()
-    cy.screenshot('imagen7')
+  })
 
-    //repetir secuencia para generar las demas fotos
+  it('Login dos', function() {
 
-
+    cy.visit('https://habitica.com/static/home')
+    cy.get('#app').contains('Login').click()
+    cy.get('#login-form').find('input[id="usernameInput"]').click().type("fakeuser1@fake.com")
+    cy.get('#login-form').find('input[id="passwordInput"]').click().type("asdfghj")
+    cy.get('#login-form').contains('Login').click()
+    cy.screenshot('2_Login')
+    cy.wait(1000);
   })
 
 })
-
+/*
 describe("Login 2", () => {
   it("Login 2", () => {
 
@@ -82,7 +67,7 @@ cy.screenshot('imagen7C')
   });
 });
 
-
+/*
 describe("test de VRT", () => {
   it("VRT", () => {
     cy.visit('http://127.0.0.1:8887/Resemble.html')

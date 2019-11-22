@@ -1,18 +1,34 @@
 {
-  "name": "vrt_cypress",
+  "name": "resseemblejs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Visual regression testing",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cy:open": "cypress open"
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "cypress": "^3.6.0",
+  "dependencies": {
+    "aws-sdk": "^2.568.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cypress": "^3.6.1",
     "cypress-image-snapshot": "^3.1.1",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "mocha": "^5.2.0",
     "mochawesome": "^4.1.0",
-    "mochawesome-merge": "^2.0.1"
+    "mochawesome-merge": "^2.0.1",
+    "mysql": "^2.17.1",
+    "node-cron": "^2.0.3",
+    "nodemon": "^1.19.3",
+    "path": "^0.12.7",
+    "promise": "^8.0.3",
+    "request": "^2.88.0",
+    "resemblejs": "^3.2.3",
+    "shell-exec": "^1.0.2",
+    "shelljs": "^0.8.3"
   }
 }
