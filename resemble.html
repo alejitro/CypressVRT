@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Virtual Regression Testing</title>
+  <meta name="description" content="">
+ <meta name="viewport" content="width=device-width">
+ <link rel="stylesheet" href="./resemble/resemble.css">
+ </head>
+ <body>
+   <h1>Resultados VRT</h1>
+   <div class="small-drop-zone" style="height:40px;">Imagen 1</div>
+   <div class="small-drop-zone" style="height:40px;">Imagen 2</div>
+   <div class="small-drop-zone" style="height:40px;">Diferencial</div>
+   <div class="small-drop-zone" style="width:10%;height:40px;">Anotaciones</div>
+<!-- desde acá se repite para cada test -->
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen1.png">
+   </div>
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen1C.png">
+   </div>
+   <div id="diff1" class="small-drop-zone"></div>
+   <div class="small-drop-zone" style="width:10%;">
+    <span id="note1"></span>
+   </div>
+  <br style="clear:both;">
+<!-- hasta acá se repite para cada test -->
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen2.png">
+   </div>
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen2C.png">
+   </div>
+   <div id="diff2" class="small-drop-zone"></div>
+   <div class="small-drop-zone" style="width:10%;">
+    <span id="note2"></span>
+   </div>
+  <br style="clear:both;">
+
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen3.png">
+   </div>
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen3C.png">
+   </div>
+   <div id="diff3" class="small-drop-zone"></div>
+   <div class="small-drop-zone" style="width:10%;">
+    <span id="note3"></span>
+   </div>
+  <br style="clear:both;">
+
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen4.png">
+   </div>
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen4C.png">
+   </div>
+   <div id="diff4" class="small-drop-zone"></div>
+   <div class="small-drop-zone" style="width:10%;">
+    <span id="note4"></span>
+   </div>
+  <br style="clear:both;">
+
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen5.png">
+   </div>
+   <div class="small-drop-zone">
+    <img style="width:100%;" src="cypress/screenshots/imagen5C.png">
+   </div>
+   <div id="diff5" class="small-drop-zone"></div>
+   <div class="small-drop-zone" style="width:10%;">
+    <span id="note5"></span>
+   </div>
+  <br style="clear:both;">
+
+
+<button class="btn" id="example-images">button</button>
+  <script src="./resemble/jquery.min.js"></script>
+  <script src="./resemble/resemble.js"></script>
+  <script src="./resemble/main.js"></script>
+ </body>
+</html>

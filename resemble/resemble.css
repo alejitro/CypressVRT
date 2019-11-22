@@ -1,0 +1,26 @@
+body {
+    font: 1em "Open Sans", sans-serif;
+    margin: 30px 20px 20px 20px;
+
+    text-align: center;
+}
+
+.small-drop-zone {
+    border: 3px solid #ccc;
+    float: left;    
+    height: 300px;
+    width: 25%;
+    overflow: hidden;
+    position: relative;
+}
+
+.small-drop-zone.drag-over {
+    border: 10px dashed #08c;
+}
+
+.small-drop-zone img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
