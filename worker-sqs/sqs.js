@@ -46,7 +46,6 @@ module.exports.getSqs = function(req,success,error){
         success({ status: "OK" });
     },function(err){
         error(err);
-
     })
   }
 
@@ -54,7 +53,7 @@ module.exports.getSqs = function(req,success,error){
     let update = `UPDATE hangover.EXECUTION_TESTS SET status=1 WHERE code=${code}`;
     console.log(update);
     db.query(update, (err, result) => {
-        if (err) throw error;
+        if (err) throw err;
        console.log(result);
     });
   }

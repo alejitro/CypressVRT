@@ -11,8 +11,8 @@ describe('Habitica', function() {
     cy.get('#login-form').find('input[id="passwordInput"]').click().type("pruebas201902")
     cy.get('#login-form').contains('Login').click()
     cy.url().should('contain','https://habitica.com/')
-    cy.screenshot('1_Login')
     cy.wait(1000);
+    cy.screenshot('1_Login')
   })
 
   it('Login dos', function() {
@@ -22,8 +22,8 @@ describe('Habitica', function() {
     cy.get('#login-form').find('input[id="usernameInput"]').click().type("fakeuser1@fake.com")
     cy.get('#login-form').find('input[id="passwordInput"]').click().type("asdfghj")
     cy.get('#login-form').contains('Login').click()
-    cy.screenshot('2_Login')
     cy.wait(1000);
+    cy.screenshot('2_Login')
   })
 
 })

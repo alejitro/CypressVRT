@@ -30,5 +30,9 @@
     "resemblejs": "^3.2.3",
     "shell-exec": "^1.0.2",
     "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "canvas": "^2.6.0",
+    "fs-extra": "^8.1.0"
   }
 }

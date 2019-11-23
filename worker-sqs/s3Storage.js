@@ -9,7 +9,7 @@ const s3 = new AWS.S3({
 });
 
 module.exports.saveFileToS3 = (code, file, success) => {
-  let bucketname= 'reports-cucumber-testing'
+  let bucketname= 'reports-vrt-testing'
   console.log("key: ", code);
   console.log("Bucket name: ", bucketname);
   s3.createBucket({
@@ -26,9 +26,10 @@ module.exports.saveFileToS3 = (code, file, success) => {
     let params = {
       Bucket: bucketname,
       Key: code,
-      Body: `<pre>${file}<pre>`,
+      Body: file,
+      /*Body: `<pre>${file}<pre>`,
       CacheControl:"max-age=0,no-cache,no-store,must-revalidate",
-      ContentType:"text/html",
+      ContentType:"image/png",*/
       ACL:"public-read"
     };
     s3.putObject(params, function (err, data) {
@@ -38,7 +39,7 @@ module.exports.saveFileToS3 = (code, file, success) => {
         return 0;
       }
       updateUrlReport(code,`https://${bucketname}.s3.amazonaws.com/${code}`);
-      console.log('HTML creado exitosamente: '+`https://${bucketname}.s3.amazonaws.com/${code}`);
+      console.log('PNG creada exitosamente: '+`https://${bucketname}.s3.amazonaws.com/${code}`);
       success();
     });
     listBucketKeys(code);
@@ -105,7 +106,7 @@ const listBucketKeys = (key)=>{
   var raiz = split[0];
   console.log("directorio raiz: ", raiz);
   let params={
-    Bucket: 'reports-cucumber-testing',
+    Bucket: 'reports-vrt-testing',
     Prefix: raiz,
   }
   s3.listObjectsV2(params,function(err,data){

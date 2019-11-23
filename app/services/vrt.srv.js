@@ -2,6 +2,7 @@
 const shell = require('shelljs');
 const request = require('request');
 const fs = require('fs');
+const fsex = require('fs-extra');
 const s3 = require('../../worker-sqs/s3Storage.js');
 var resemblejsCompare = require('resemblejs').compare;
 Promise = require('promise');
@@ -18,8 +19,6 @@ module.exports.generateVRT = function(req,success,error){
     var execution = {
         insertionDate: new Date(),
         timestamp: timestamp,
-        //beforeImgUri: fs.readFile(`${path}/cypress/screenshots/vrthabitica/imagen1.png`),
-        //afterImgUri: fs.readFile(`${path}/cypress/screenshots/vrthabitica/imagen1C.png`)
     };
 
     const options = {
@@ -29,15 +28,12 @@ module.exports.generateVRT = function(req,success,error){
         returnEarlyThreshold: 5
     };
 
-    //for(var i = 0,p = Promise.resolve();i<itemsEx;i++){
-        //p= p.then(_ => new Promise(resolve => {
+    for(var i = 0,p = Promise.resolve();i<itemsEx;i++){
+        p= p.then(_ => new Promise(resolve => {
             code = `${codeinit}_${item}`;
             shell.exec('npx cypress run --headed');
-            return new Promise((resolve, reject) => {
-                const options = {};
-                console.log(execution.beforeImgUri);
+            return new Promise((reject) => {
                 fs.readdir(`${path}/cypress/screenshots/vrthabitica.js/`,function(err, items) {
-                    let file;
                     var execution = {
                         insertionDate: new Date(),
                         timestamp: timestamp,
@@ -51,57 +47,55 @@ module.exports.generateVRT = function(req,success,error){
                         // the combination of these results in a significant speed-up in batch processing
                         returnEarlyThreshold: 5
                     };
-        
-                    /*for(var i=0;i<items.length;i++){
-                        if(items[i].includes('Login.png')){
-                            file = items[i];
-                            break;
-                        }
-                    }*/
-                    console.log("BeforeImgUri: ", execution.beforeImgUri);
-                    console.log("AfterImgUri: ", execution.afterImgUri);
-                    resemblejsCompare(execution.beforeImgUri, execution.afterImgUri, options, function (err, data) {
-                        if (err) reject(err);   
-                        else        {
-                            console.log("Resultado de resemble: ",data);
-                            fs.writeFile(`${path}/cypress/report/comparation.png`, data.getBuffer(), (err) => {                
+
+                    return new Promise((reject) => {
+                        const options = {};
+                        console.log("BeforeImgUri: ", execution.beforeImgUri);
+                        console.log("AfterImgUri: ", execution.afterImgUri);
+                        resemblejsCompare(execution.beforeImgUri, execution.afterImgUri, options, function (err, data) {
+                            if (err) reject(err);   
+                            else {
+                                console.log("Resultado de resemble: ",data);
+                                console.log("Buffer: ", data.getBuffer());
+                            }
+                            execution.comparationImgUri = `${path}/cypress/report/comparation_${code}.png`;
+                            fs.writeFileSync(execution.comparationImgUri, data.getBuffer(), (err) => {                
                                 if (err) reject(err);
                                 execution.comparation = data;
-                                execution.comparationImgUri = `${path}/cypress/report/comparation.png`;
                                 console.log('report '+JSON.stringify(execution))
-                                success(execution);
+                                //success(execution);
                             });
-                        }                     
-                        
+                            fs.readdir(`${path}/cypress/report/`,function(err, imageItems) {
+                                let file;
+                                for(var i=0;i<imageItems.length;i++){
+                                    if(imageItems[i].includes(`${code}`)){
+                                        file = imageItems[i];
+                                        break;
+                                    }
+                                }
+                                console.log("file: ",file);
+                                const content = fs.readFileSync(`${path}/cypress/report/${file}`);
+                                console.log("dataContent",content);
+                                s3.saveFileToS3(`${code}`,content,()=>{
+                                    /*for(var i=0;i<imageItems.length;i++){
+                                        if(imageItems[i].includes('png')){
+                                            fs.unlinkSync(`${path}/cypress/report/${imageItems[i]}`);
+                                        }
+                                    }*/
+                                    if(item == itemsEx){
+                                        success("ok");
+                                    }else{
+                                        item = item+1;
+                                        resolve();
+                                    }
+                                });
+                            });
+                            
+                        });
                     });
             
                 });
             });
-        /*    shell.exec('npx cypress run', function(stdout, stderr) {
-                fs.readdir(`${path}/test/report`,function(err, items) {
-                    let file;
-                    for(var i=0;i<items.length;i++){
-                        if(items[i].includes('html')){
-                            file = items[i];
-                            break;
-                        }
-                    }
-                    const content = fs.readFileSync(`${path}/test/report/${file}`);
-                    s3.saveFileToS3(`${code}`,content,()=>{
-                        for(var i=0;i<items.length;i++){
-                            if(items[i].includes('html')){
-                                fs.unlinkSync(`${path}/test/report/${items[i]}`);
-                            }
-                        }
-                        if(item == itemsEx){
-                            success("ok");
-                        }else{
-                            item = item+1;
-                            resolve();
-                        }
-                    /*});
-                });
-            });
         }));
-    }*/
+    }    
 }

@@ -1,5 +1,6 @@
 #folders
 /node_modules
+/cypress/report
 
 #files
 package-lock.json
