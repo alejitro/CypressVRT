@@ -16,7 +16,7 @@ module.exports.getSqs = function(req,success,error){
         'All'
       ],
       QueueUrl: sqsUrl,
-      VisibilityTimeout: 40,
+      VisibilityTimeout: 150,
       WaitTimeSeconds: 20
     };
 
